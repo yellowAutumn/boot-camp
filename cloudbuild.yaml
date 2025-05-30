@@ -1,0 +1,43 @@
+steps:
+  # Step 1: Use the official Terraform image to run terraform init
+  - name: hashicorp/terraform:1.5.0 # Replace with the desired Terraform version
+    entrypoint: "/bin/sh"
+    args:
+      - "-c"
+      - |
+        terraform init
+
+  # Step 2: Run terraform plan
+  - name: hashicorp/terraform:1.5.0
+    entrypoint: "/bin/sh"
+    args:
+      - "-c"
+      - |
+        terraform plan -out=tfplan
+
+  # Step 3: Run terraform apply with retry logic
+  - name: hashicorp/terraform:1.5.0
+    entrypoint: "/bin/sh"
+    args:
+      - "-c"
+      - |
+        for i in {1..3}; do
+          terraform apply -auto-approve tfplan && break || echo "Retrying terraform apply ($i/3)..."
+          sleep 10
+        done
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+# Optionally, specify the Terraform working directory if it's not the root
+# dir: terraform_projects_1/
+
+# Define any required substitutions or environment variables
+substitutions:
+  _PROJECT_ID: "boot-camp-e-commerce-1"
+
+# Optionally, specify the service account to use for Cloud Build
+# serviceAccount: "your-service-account@your-project-id.iam.gserviceaccount.com"
+
+# Timeout for the build process (default is 10 minutes)
+timeout: "1200s" # Increased timeout for longer operations
