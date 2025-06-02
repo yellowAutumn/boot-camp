@@ -1,0 +1,93 @@
+# Service Justification Document  
+**Project:** E-commerce Platform on Google Cloud  
+**Date:** June 2, 2025
+
+---
+
+## 1. App Engine (E-commerce App & Admin App)
+**Justification:**  
+- Fully managed, serverless platform for scalable web and admin applications.
+- Handles automatic scaling, patching, and high availability.
+- Integrates natively with Firestore, Cloud Functions, and IAM for secure, seamless operations.
+
+## 2. Cloud Functions (Product API, Inventory API, Order API)
+**Justification:**  
+- Event-driven, serverless compute for modular APIs (Product, Inventory, Order).
+- Enables microservices architecture, decoupling business logic.
+- Scales automatically and charges only for actual usage.
+
+## 3. Firestore (Database)
+**Justification:**  
+- NoSQL, serverless, real-time database for product, order, and inventory data.
+- Supports flexible, scalable data storage and real-time updates.
+- Integrates with App Engine and Cloud Functions for seamless data access.
+
+## 4. API Gateway
+**Justification:**  
+- Centralizes API management, security, and monitoring.
+- Simplifies authentication, rate limiting, and routing for backend APIs.
+- Protects Cloud Functions endpoints and provides a unified API surface.
+
+## 5. Identity Federation
+**Justification:**  
+- Provides secure authentication and authorization for users and services.
+- Supports single sign-on and integration with external identity providers.
+- Ensures secure access to applications and APIs.
+
+## 6. IAM (Identity and Access Management)
+**Justification:**  
+- Manages permissions and access control for all GCP resources.
+- Enforces least-privilege access and compliance requirements.
+- Integrates with all services for centralized security management.
+
+## 7. Data Lake
+**Justification:**  
+- Central repository for storing raw and processed data.
+- Enables analytics, machine learning, and reporting use cases.
+- Integrates with BigQuery for advanced analytics.
+
+## 8. BigQuery
+**Justification:**  
+- Serverless, highly scalable data warehouse for analytics and reporting.
+- Enables fast SQL queries on large datasets.
+- Integrates with Data Lake and Looker for business intelligence.
+
+## 9. Looker
+**Justification:**  
+- Modern BI tool for data visualization and dashboarding.
+- Connects directly to BigQuery for real-time analytics.
+- Empowers business users with self-service insights.
+
+## 10. Cloud Build
+**Justification:**  
+- CI/CD automation for building, testing, and deploying applications.
+- Integrates with source repositories and GCP services.
+- Ensures rapid, reliable delivery of new features.
+
+## 11. Cloud Monitoring
+**Justification:**  
+- Provides observability into application and infrastructure health.
+- Enables proactive alerting and troubleshooting.
+- Integrates with all GCP services for unified monitoring.
+
+## 12. VPC (Virtual Private Cloud)
+**Justification:**  
+- Provides secure, private networking for all cloud resources.
+- Enables network segmentation, firewall rules, and private IPs.
+- Supports compliance and security requirements.
+
+## 13. KMS (Key Management Service)
+**Justification:**  
+- Manages cryptographic keys for data encryption.
+- Ensures sensitive data is protected at rest and in transit.
+- Supports compliance and regulatory requirements.
+
+## 14. Actors (User & Admin)
+**Justification:**  
+- Represents end-users and administrators interacting with the system.
+- Ensures role-based access and separation of duties.
+
+---
+
+**Summary:**  
+This architecture leverages Google Cloud’s managed, serverless, and integrated services to deliver a scalable, secure, and cost-effective e-commerce platform. Each service is selected to minimize operational overhead, maximize scalability, and ensure robust security, analytics, and compliance capabilities. The inclusion of IAM, VPC, and KMS further strengthens the platform’s security posture.
