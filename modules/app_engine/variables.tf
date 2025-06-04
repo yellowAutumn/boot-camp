@@ -1,14 +1,4 @@
 
-variable "project_id" {
-  description = "bootcamp project ID"
-}
-
-variable "region" {
-  description = "Region for resources"
-  default     = "us-central1"
-}
-
-
 variable "bootcamp_project_id" {
   description = "bootcamp project ID"
 }
