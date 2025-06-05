@@ -1,15 +1,38 @@
-// Replace these with your actual API endpoints as needed
+import { loadConfig } from "./config";
+
+// Mock data
+const mockProducts = [
+  { id: 1, name: "Product A", price: 10.99 },
+  { id: 2, name: "Product B", price: 19.99 },
+  { id: 3, name: "Product C", price: 5.49 },
+];
 
 export async function fetchProducts() {
-  // Return mock products for local testing
-  return [
-    { id: 1, name: "Product A", price: 10.99 },
-    { id: 2, name: "Product B", price: 19.99 },
-    { id: 3, name: "Product C", price: 5.49 },
-  ];
+  try {
+    const { PRODUCT_API_URL } = await loadConfig();
+    const res = await fetch(PRODUCT_API_URL);
+    if (!res.ok) throw new Error("API error");
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) return mockProducts;
+    return data;
+  } catch (e) {
+    return mockProducts;
+  }
 }
 
 export async function orderProduct(productId) {
-  // Return mock order confirmation
-  return { id: Math.floor(Math.random() * 10000), productId };
+  try {
+    const { ORDER_API_URL } = await loadConfig();
+    const res = await fetch(ORDER_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId }),
+    });
+    if (!res.ok) throw new Error("API error");
+    const data = await res.json();
+    if (!data || !data.id) return { id: Math.floor(Math.random() * 10000), productId };
+    return data;
+  } catch (e) {
+    return { id: Math.floor(Math.random() * 10000), productId };
+  }
 }

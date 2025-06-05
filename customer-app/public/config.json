@@ -1,0 +1,4 @@
+{
+  "PRODUCT_API_URL": "https://your-product-service-url/products",
+  "ORDER_API_URL": "https://your-order-service-url/orders"
+}
