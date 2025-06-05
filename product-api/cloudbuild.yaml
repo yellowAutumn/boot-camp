@@ -3,13 +3,11 @@ options:
 
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build', '-f', 'product-api/Dockerfile', '-t', 'gcr.io/$PROJECT_ID/product-api:latest', '.'
-    ]
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/product-api:latest', '.']
+    dir: 'boot-camp/product-api'
+
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'push', 'gcr.io/$PROJECT_ID/product-api:latest'
-    ]
+    args: ['push', 'gcr.io/$PROJECT_ID/product-api:latest']
 
 images:
   - 'gcr.io/$PROJECT_ID/product-api:latest'
