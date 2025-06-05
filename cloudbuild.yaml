@@ -4,7 +4,6 @@ options:
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/product-api:latest', '.']
-    dir: 'boot-camp/product-api'
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/product-api:latest']
