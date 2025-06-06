@@ -32,7 +32,7 @@ function App() {
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.name}</td>
-              <td>{p.price}</td>
+              <td>{p.cost}</td>
               <td>
                 <button onClick={() => handleOrder(p.id)}>Order</button>
               </td>
