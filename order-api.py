@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Add this import
 from google.cloud import firestore
 import uuid
 import os
@@ -7,6 +8,7 @@ import os
 # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "path/to/your/service-account.json"
 
 app = Flask(__name__)
+CORS(app, origins=["https://customer-web-app-702586501583.us-central1.run.app"])  # Add this line
 db = firestore.Client()
 orders_collection = db.collection('orders')
 
