@@ -1,4 +1,4 @@
 {
-  "PRODUCT_API_URL": "https://your-product-service-url/products",
-  "ORDER_API_URL": "https://your-order-service-url/orders"
+  "orderApiUrl": "https://order-api-ntppvf6llq-uc.a.run.app",
+  "productApiUrl": "https://product-api-ntppvf6llq-uc.a.run.app"
 }
