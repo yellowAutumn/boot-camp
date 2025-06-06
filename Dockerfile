@@ -12,7 +12,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 # Copy built React app to NGINX's public folder
 COPY --from=build /app/build /usr/share/nginx/html
-# Copy custom nginx config if needed (optional)
-# COPY nginx.conf /etc/nginx/nginx.conf
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
