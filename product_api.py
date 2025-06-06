@@ -1,8 +1,11 @@
 from flask import Flask, jsonify
+from flask_cors import CORS  # Add this import
 from google.cloud import firestore
 import os
 
 app = Flask(__name__)
+CORS(app, origins=["https://customer-web-app-702586501583.us-central1.run.app"])  # Add this line
+
 db = firestore.Client()
 PRODUCTS_COLLECTION = "products"
 
