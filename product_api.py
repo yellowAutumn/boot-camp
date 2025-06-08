@@ -5,6 +5,7 @@ import os
 import json
 import uuid
 from datetime import datetime
+import logging
 
 
 app = Flask(__name__)
@@ -12,6 +13,8 @@ db = firestore.Client()
 PRODUCTS_COLLECTION = "products"
 CORS(app, origins=["https://customer-web-app-702586501583.us-central1.run.app"])  # Add this line
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 # Pub/Sub setup
 PUBSUB_TOPIC = os.environ.get("PUBSUB_TOPIC", "projects/pr-db-fn-1/topics/product-events")
@@ -31,7 +34,7 @@ def get_all_products():
             "cost": data.get("cost")
         }
         products.append(product)
-    print(f"Using Pub/Sub topic: {PUBSUB_TOPIC}")  # Print the topic name
+    logging.info(f"Using Pub/Sub topic: {PUBSUB_TOPIC}")  # Print the topic name
 
     # Publish event to Pub/Sub
     event = {
@@ -42,7 +45,7 @@ def get_all_products():
         "event_data": json.dumps({"products_count": len(products)})
     }
     publisher.publish(PUBSUB_TOPIC, json.dumps(event).encode("utf-8"))
-    print(f"Published event: {event}")
+    logging.info(f"Published event: {event}")
     return jsonify(products), 200
 
 if __name__ == '__main__':
