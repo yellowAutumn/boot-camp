@@ -41,7 +41,7 @@ def get_all_products():
         "event_data": json.dumps({"products_count": len(products)})
     }
     publisher.publish(PUBSUB_TOPIC, json.dumps(event).encode("utf-8"))
-
+    print(f"Published event: {event}")
     return jsonify(products), 200
 
 if __name__ == '__main__':
