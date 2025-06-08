@@ -31,6 +31,7 @@ def get_all_products():
             "cost": data.get("cost")
         }
         products.append(product)
+    print(f"Using Pub/Sub topic: {PUBSUB_TOPIC}")  # Print the topic name
 
     # Publish event to Pub/Sub
     event = {
