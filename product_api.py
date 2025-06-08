@@ -14,7 +14,7 @@ CORS(app, origins=["https://customer-web-app-702586501583.us-central1.run.app"])
 
 
 # Pub/Sub setup
-PUBSUB_TOPIC = os.environ.get("PUBSUB_TOPIC", "projects/YOUR_PROJECT_ID/topics/product-events")
+PUBSUB_TOPIC = os.environ.get("PUBSUB_TOPIC", "projects/pr-db-fn-1/topics/product-events")
 publisher = pubsub_v1.PublisherClient()
 
 
