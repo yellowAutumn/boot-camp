@@ -31,7 +31,7 @@ def add_product():
         'name': name,
         'cost': cost
     }
-    db.collection('product').document(product_id).set(product_data)
+    db.collection('products').document(product_id).set(product_data)
     # Publish product info to Pub/Sub topic
    # publisher.publish(topic_path, json.dumps(product_data).encode('utf-8'))
     logging.info(f"Published product: {product_data}")
