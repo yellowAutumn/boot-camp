@@ -6,11 +6,15 @@ import json
 from datetime import datetime
 import logging
 import os
+import sys
+from flask_cors import CORS
 
 app = Flask(__name__)
 db = firestore.Client()
 publisher = pubsub_v1.PublisherClient()
 
+
+CORS(app, origins=["https://admin-web-app-702586501583.us-central1.run.app"])  # Add this line
 topic_path = os.environ.get("PUBSUB_TOPIC", "projects/pr-db-fn-1/topics/product-events")
 
 
