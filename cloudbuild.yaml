@@ -3,11 +3,11 @@ options:
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
-      'build', '-t', 'gcr.io/$PROJECT_ID/customer-app:latest', '.'
+      'build', '-t', 'gcr.io/$PROJECT_ID/admin-webapp:latest', '.'
     ]
   - name: 'gcr.io/cloud-builders/docker'
     args: [
-      'push', 'gcr.io/$PROJECT_ID/customer-app:latest'
+      'push', 'gcr.io/$PROJECT_ID/admin-webapp:latest'
     ]
 images:
-  - 'gcr.io/$PROJECT_ID/customer-app:latest'
+  - 'gcr.io/$PROJECT_ID/admin-webapp:latest'
