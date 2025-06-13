@@ -44,3 +44,8 @@ variable "pubsub_admin_service_account" {
   description = "Service account email for Pub/Sub BigQuery admin"
   type        = string
 }
+
+variable "inventory_api_image" {
+  description = "Docker image for the inventory API"
+  type        = string
+}

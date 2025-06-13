@@ -87,12 +87,62 @@ resource "google_cloud_run_service_iam_member" "order_api_public" {
   member   = "allUsers"
 }
 
+resource "google_cloud_run_service" "inventory_api" {
+  name     = "inventory-api"
+  location = var.region
+  project  = var.bootcamp_project_id
+
+  template {
+    spec {
+      containers {
+        image = var.inventory_api_image # e.g., "gcr.io/my-project/inventory-api:latest"
+        ports {
+          container_port = 5000
+        }
+        env {
+          name  = "ENV"
+          value = "production"
+        }
+        env {
+          name  = "PUBSUB_TOPIC"
+          value = "projects/${var.bootcamp_project_id}/topics/product-events"
+        }
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+}
+
+resource "google_cloud_run_service_iam_member" "inventory_invoker" {
+  service  = google_cloud_run_service.inventory_api.name
+  location = google_cloud_run_service.inventory_api.location
+  project  = google_cloud_run_service.inventory_api.project
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:${var.invoker_service_account_email}"
+}
+
+resource "google_cloud_run_service_iam_member" "inventory_api_public" {
+  service  = google_cloud_run_service.inventory_api.name
+  location = google_cloud_run_service.inventory_api.location
+  project  = google_cloud_run_service.inventory_api.project
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
 output "product_api_url" {
   value = google_cloud_run_service.product_api.status[0].url
 }
 
 output "order_api_url" {
   value = google_cloud_run_service.order_api.status[0].url
+}
+
+output "inventory_api_url" {
+  value = google_cloud_run_service.inventory_api.status[0].url
 }
 
 resource "local_file" "frontend_config" {
