@@ -3,7 +3,7 @@ import React, { useState } from "react";
 async function addProduct(name, cost) {
   try {
     const res = await fetch(
-      "https://inventory-api-702586501583.us-central1.run.app/add_product",
+      "https://ecommerce-gateway-8yrhv26n.uc.gateway.dev/add_product",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
