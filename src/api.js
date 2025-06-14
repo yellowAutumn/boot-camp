@@ -10,7 +10,7 @@ const mockProducts = [
 export async function fetchProducts() {
   try {
    // const { PRODUCT_API_URL } = await loadConfig();
-    const res = await fetch("https://product-api-702586501583.us-central1.run.app/products");
+    const res = await fetch("https://ecommerce-gateway-8yrhv26n.uc.gateway.dev/products");
     if (!res.ok) throw new Error("API error");
     const data = await res.json();
     console.log("Fetched products:", data);
@@ -25,7 +25,7 @@ export async function fetchProducts() {
 export async function orderProduct(productId) {
   try {
    // const { ORDER_API_URL } = await loadConfig();
-    const res = await fetch("https://order-api-ntppvf6llq-uc.a.run.app/order", {
+    const res = await fetch("https://ecommerce-gateway-8yrhv26n.uc.gateway.dev/order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ product_id: productId }),
