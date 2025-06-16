@@ -153,6 +153,41 @@ resource "local_file" "frontend_config" {
   })
 }
 
+resource "google_api_gateway_api" "ecommerce_api" {
+  provider = google-beta
+  api_id = "ecommerce-api"
+  display_name = "E-Commerce API Gateway"
+  project = var.project_id
+}
+
+resource "google_api_gateway_api_config" "ecommerce_api_config" {
+  provider = google-beta
+  api      = google_api_gateway_api.ecommerce_api.api_id
+  api_config_id = "ecommerce-api-config"
+  display_name  = "E-Commerce API Config"
+  openapi_documents {
+    document {
+     // document_path = "openapi-gateway.yaml"
+      # Assuming the OpenAPI spec is in the same directory as this Terraform file
+      # Adjust the path if necessary
+
+       path = "openapi-gateway.yaml"
+      contents = filebase64("${path.module}/docs/openapi-gateway.yaml")
+    } 
+   // path = "${path.module}/docs/openapi-gateway.yaml"
+  }
+  project = var.project_id
+}
+
+resource "google_api_gateway_gateway" "ecommerce_gateway" {
+  provider    = google-beta
+  gateway_id  = "ecommerce-gateway"
+  api_config  = google_api_gateway_api_config.ecommerce_api_config.id
+  display_name = "E-Commerce Gateway"
+  project     = var.project_id
+  region = var.region
+}
+
 # resource "google_pubsub_topic" "product_events" {
 #   name = "product-events"
 # }

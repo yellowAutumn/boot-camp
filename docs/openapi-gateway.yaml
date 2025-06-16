@@ -1,0 +1,170 @@
+swagger: '2.0'
+info:
+  title: E-Commerce API Gateway
+  version: 1.0.0
+schemes:
+  - https
+paths:
+  /products:
+    get:
+      summary: Get all products (direct mapping)
+      operationId: getAllProducts
+      x-google-backend:
+        address: https://product-api-702586501583.us-central1.run.app/products
+      responses:
+        200:
+          description: A successful response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                cost:
+                  type: string
+                id:
+                  type: string
+                name:
+                  type: string
+          examples:
+            application/json:
+              - cost: 600
+                id: "096405f8-8a53-4795-9851-cbc522e69750"
+                name: "pixel"
+              - cost: "1"
+                id: "2nhiSX7LhogfCDCgogZG"
+                name: "iphone3"
+              - cost: "1000"
+                id: "6yues6iFF7WCA1zTT3fG"
+                name: "iphone"
+              - cost: "1000"
+                id: "U8rcbcf7UjE7gSs9i49S"
+                name: "iphone2"
+    options:
+      summary: CORS support
+      operationId: productsOptions
+      responses:
+        204:
+          description: CORS preflight
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+      x-google-backend:
+        address: https://product-api-702586501583.us-central1.run.app/products
+      x-google-extensions:
+        cors:
+          origins: ["*"]
+          methods: ["GET,OPTIONS,POST"]
+          headers: ["Content-Type,Authorization"]
+  /order:
+    post:
+      summary: Place an order
+      operationId: orderApiProxyPost
+      x-google-backend:
+        address: https://order-api-702586501583.us-central1.run.app/order
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+      responses:
+        200:
+          description: Order placed successfully
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              order_id:
+                type: string
+          examples:
+            application/json:
+              message: "Order placed"
+              order_id: "94f14140-8805-4c09-99e0-db1877d0dfd4"
+    options:
+      summary: CORS support
+      operationId: orderOptions
+      responses:
+        200:
+          description: CORS support
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+          schema:
+            type: string
+      x-google-backend:
+        address: https://order-api-702586501583.us-central1.run.app/order
+      x-google-extensions:
+        cors:
+          origins:
+            - '*'
+          methods:
+            - POST
+            - OPTIONS
+          headers:
+            - Content-Type
+            - Authorization
+            - X-Requested-With
+            - X-Api-Key
+  /add_product:
+    post:
+      summary: Add a product to inventory
+      operationId: inventoryApiProxyPost
+      x-google-backend:
+        address: https://inventory-api-702586501583.us-central1.run.app/add_product
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              cost:
+                type: integer
+      responses:
+        200:
+          description: Product added successfully
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              message:
+                type: string
+          examples:
+            application/json:
+              id: "ba47a9a8-c180-4752-a404-abde58f62cd7"
+              message: "Product added"
+    options:
+      summary: CORS support
+      operationId: addProductOptions
+      responses:
+        204:
+          description: CORS preflight
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+      x-google-backend:
+        address: https://inventory-api-702586501583.us-central1.run.app/add_product
+      x-google-extensions:
+        cors:
+          origins: ["*"]
+          methods: ["POST,OPTIONS"]
+          headers: ["Content-Type,Authorization"]
